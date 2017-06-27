@@ -4,18 +4,21 @@
     <label for="licenceNumber">Licence Plate #:&nbsp;</label>
     <input id="licenceNumber" type="text" formControlName="licenceNumber">
 
-    <ul class="error-messages" *ngIf="carForm.controls.licenceNumber.invalid && carForm.controls.licenceNumber.touched">
-      <li *ngFor="let error of formErrors['licenceNumber']">{{ error }}</li>
-    </ul>
+    <app-error-messages
+      *ngIf="carForm.controls.licenceNumber.invalid && carForm.controls.licenceNumber.touched"
+      [messages]="formErrors['licenceNumber']">
+    </app-error-messages>
   </div>
 
   <div>
     <label for="year">Year:&nbsp;</label>
     <input id="year" type="number" formControlName="year">
 
-    <ul class="error-messages" *ngIf="carForm.controls.year.invalid && carForm.controls.year.touched">
-      <li *ngFor="let error of formErrors['year']">{{ error }}</li>
-    </ul>
+    <app-error-messages
+      *ngIf="carForm.controls.year.invalid && carForm.controls.year.touched"
+      [messages]="formErrors['year']">
+
+    </app-error-messages>
   </div>
 
   <div>
@@ -26,9 +29,10 @@
       </option>
     </select>
 
-    <ul class="error-messages" *ngIf="carForm.controls.color.invalid && carForm.controls.color.touched">
-      <li *ngFor="let error of formErrors['color']">{{ error }}</li>
-    </ul>
+    <app-error-messages
+      *ngIf="carForm.controls.color.invalid && carForm.controls.color.touched"
+      [messages]="formErrors['color']">
+    </app-error-messages>
   </div>
 
   <div>

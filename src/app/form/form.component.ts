@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ISubscription } from 'rxjs/Subscription';
-
+import { Color, ColorValues } from '../app.model';
 
 @Component({
   selector   : 'app-form',
@@ -9,50 +9,56 @@ import { ISubscription } from 'rxjs/Subscription';
   styleUrls  : ['./form.component.scss']
 })
 export class FormComponent implements OnInit, OnDestroy {
-  licenceNumberPattern: any = /^\d{2}-\d{3}-\d{2}$/g;
+  licenseNumberPattern: any = /^\d{2}-\d{3}-\d{2}$/g;
   descMaxLength             = 10;
   currentYear: number       = new Date().getFullYear();
   carForm: FormGroup;
   subscription: ISubscription;
 
   formErrors: any = {
-    licenceNumber: [],
+    licenseNumber: [],
     description  : [],
     year         : [],
     color        : []
   };
 
-  colors: any = [
+  colors: Color[] = [
     {
-      value  : 'white',
+      value  : ColorValues.White,
       display: 'White'
     },
     {
-      value  : 'black',
+      value  : ColorValues.Black,
       display: 'Black'
     },
     {
-      value  : 'green',
+      value  : ColorValues.Green,
       display: 'Green'
     }
   ];
 
   validationsMessages: any = {
-    licenceNumber: {
-      required: 'Licence plate field is required',
-      pattern : 'The licence plate number must match the pattern: XX-XXX-XX'
-    },
-    description  : {
-      required : 'Description field is required',
-      maxlength: `Maximum characters is ${this.descMaxLength}`
-    },
-    year         : {
-      required: 'Year field is required',
-      max     : `Maximum year value can be ${this.currentYear}`
-    },
-    color        : {
-      required: 'Color field is required'
-    }
+    licenseNumber: [
+      {
+        errorType: 'required',
+        errorString: 'Licence plate field is required',
+      },
+      {
+        errorType: 'pattern',
+        errorString : 'The licence plate number must match the pattern: XX-XXX-XX'
+      }
+    ],
+    // description  : {
+    //   required : 'Description field is required',
+    //   maxlength: `Maximum characters is ${this.descMaxLength}`
+    // },
+    // year         : {
+    //   required: 'Year field is required',
+    //   max     : `Maximum year value can be ${this.currentYear}`
+    // },
+    // color        : {
+    //   required: 'Color field is required'
+    // }
   };
 
   constructor(private builder: FormBuilder) {
@@ -64,10 +70,14 @@ export class FormComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.carForm = this.builder.group({
-      licenceNumber: ['', [
-        Validators.required,
-        Validators.pattern(this.licenceNumberPattern)
-      ]],
+      licenseNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.licenseNumberPattern),
+          // Validators.notEmpty(/\d+/gi)
+        ]
+      ],
       description  : ['', [
         Validators.required,
         Validators.maxLength(this.descMaxLength)
@@ -86,22 +96,22 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onValueChanged() {
-    for (const field in this.formErrors) {
-
-      if (!this.formErrors.hasOwnProperty(field)) continue;
-
-      this.formErrors[field] = [];
-
-      const control  = this.carForm.get(field);
-      const messages = this.validationsMessages[field];
-
-      for (const key in control.errors) {
-
-        if (!control.errors.hasOwnProperty(key)) continue;
-
-        this.formErrors[field].push(messages[key]);
-      }
-    }
+    // for (const field in this.formErrors) {
+    //
+    //   if (!this.formErrors.hasOwnProperty(field)) continue;
+    //
+    //   this.formErrors[field] = [];
+    //
+    //   const control  = this.carForm.get(field);
+    //   const messages = this.validationsMessages[field];
+    //
+    //   for (const key in control.errors) {
+    //
+    //     if (!control.errors.hasOwnProperty(key)) continue;
+    //
+    //     this.formErrors[field].push(messages[key]);
+    //   }
+    // }
   }
 
   submit(data) {

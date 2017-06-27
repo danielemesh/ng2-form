@@ -1,16 +1,31 @@
 <form [formGroup]="carForm" (ngSubmit)="submit(carForm.value)">
 
-  <div>
-    <label for="licenceNumber">Licence Plate #:&nbsp;</label>
-    <input id="licenceNumber" type="text" formControlName="licenceNumber">
+  <!--<div>-->
+    <!--<label for="licenseNumber">Licence Plate #:&nbsp;</label>-->
+    <!--<input id="licenseNumber" type="text" formControlName="licenseNumber">-->
 
-    <app-error-messages
-      *ngIf="carForm.controls.licenceNumber.invalid && carForm.controls.licenceNumber.touched"
-      [messages]="formErrors['licenceNumber']">
-    </app-error-messages>
-  </div>
+    <!--<div class="test"-->
+         <!--*ngIf="carForm?.get('licenseNumber')?.errors?.pattern">{{ validationsMessages['licenseNumber'].pattern }}-->
+    <!--</div>-->
+
+    <!--<app-error-messages-->
+      <!--*ngIf="carForm.controls.licenseNumber.invalid && carForm.controls.licenseNumber.touched"-->
+      <!--[messages]="formErrors['licenseNumber']">-->
+    <!--</app-error-messages>-->
+  <!--</div>-->
+
+  <app-form-item
+    [messages]="validationsMessages['licenseNumber']"
+    [errorsMap]="carForm.get('licenseNumber')">
+
+    <label>
+      <span>Licence Plate #:&nbsp;</span>
+      <input type="text" formControlName="licenseNumber">
+    </label>
+  </app-form-item>
 
   <div>
+    {{ carForm.controls.description.errors | json }}
     <label for="description">Description</label>
     <input id="description" type="text" formControlName="description">
 

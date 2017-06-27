@@ -7,10 +7,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ErrorMessagesComponent implements OnInit {
   @Input() messages: string[];
+  @Input() errorsMap;
 
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  test() {
+    debugger;
   }
 
 }

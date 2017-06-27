@@ -7,7 +7,7 @@ describe('ng2-form App', () => {
     page = new Ng2FormPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display errorString saying app works', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('app works!');
   });

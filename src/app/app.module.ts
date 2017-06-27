@@ -6,12 +6,16 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { ErrorMessagesComponent } from './form/error-messages/error-messages.component';
+import { FormItemComponent } from './form-item/form-item.component';
+import { ErrorMessageComponent } from './form/error-messages/error-message/error-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
+    FormItemComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,

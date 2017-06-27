@@ -11,13 +11,22 @@
   </div>
 
   <div>
+    <label for="description">Description</label>
+    <input id="description" type="text" formControlName="description">
+
+    <app-error-messages
+      *ngIf="carForm.controls.description.invalid && carForm.controls.description.touched"
+      [messages]="formErrors['description']">
+    </app-error-messages>
+  </div>
+
+  <div>
     <label for="year">Year:&nbsp;</label>
     <input id="year" type="number" formControlName="year">
 
     <app-error-messages
       *ngIf="carForm.controls.year.invalid && carForm.controls.year.touched"
       [messages]="formErrors['year']">
-
     </app-error-messages>
   </div>
 

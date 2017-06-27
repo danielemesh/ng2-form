@@ -10,27 +10,29 @@ import { ISubscription } from 'rxjs/Subscription';
 })
 export class FormComponent implements OnInit, OnDestroy {
   licenceNumberPattern: any = /^\d{2}-\d{3}-\d{2}$/g;
-  currentYear: number = new Date().getFullYear();
+  descMaxLength             = 10;
+  currentYear: number       = new Date().getFullYear();
   carForm: FormGroup;
   subscription: ISubscription;
 
   formErrors: any = {
     licenceNumber: [],
+    description  : [],
     year         : [],
     color        : []
   };
 
   colors: any = [
     {
-      value: 'white',
+      value  : 'white',
       display: 'White'
     },
     {
-      value: 'black',
+      value  : 'black',
       display: 'Black'
     },
     {
-      value: 'green',
+      value  : 'green',
       display: 'Green'
     }
   ];
@@ -39,6 +41,10 @@ export class FormComponent implements OnInit, OnDestroy {
     licenceNumber: {
       required: 'Licence plate field is required',
       pattern : 'The licence plate number must match the pattern: XX-XXX-XX'
+    },
+    description  : {
+      required : 'Description field is required',
+      maxlength: `Maximum characters is ${this.descMaxLength}`
     },
     year         : {
       required: 'Year field is required',
@@ -62,6 +68,10 @@ export class FormComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern(this.licenceNumberPattern)
       ]],
+      description  : ['', [
+        Validators.required,
+        Validators.maxLength(this.descMaxLength)
+      ]],
       year         : [null, [
         Validators.required,
         Validators.max(this.currentYear)
@@ -82,8 +92,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
       this.formErrors[field] = [];
 
-      const control = this.carForm.get(field);
-
+      const control  = this.carForm.get(field);
       const messages = this.validationsMessages[field];
 
       for (const key in control.errors) {
@@ -92,7 +101,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
         this.formErrors[field].push(messages[key]);
       }
-
     }
   }
 

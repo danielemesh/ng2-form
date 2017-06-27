@@ -1,37 +1,46 @@
-<form>
+<form [formGroup]="carForm" (ngSubmit)="submit(carForm.value)">
+
   <div>
-    <input type="text">
+    <label for="licenceNumber">Licence Plate #:&nbsp;</label>
+    <input id="licenceNumber" type="text" formControlName="licenceNumber">
+
+    <ul class="error-messages" *ngIf="carForm.controls.licenceNumber.invalid && carForm.controls.licenceNumber.touched">
+      <li *ngFor="let error of formErrors['licenceNumber']">{{ error }}</li>
+    </ul>
   </div>
 
   <div>
-    <input type="number">
+    <label for="year">Year:&nbsp;</label>
+    <input id="year" type="number" formControlName="year">
+
+    <ul class="error-messages" *ngIf="carForm.controls.year.invalid && carForm.controls.year.touched">
+      <li *ngFor="let error of formErrors['year']">{{ error }}</li>
+    </ul>
   </div>
 
   <div>
-    <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
+    <label for="color">Color:&nbsp;</label>
+    <select id="color" formControlName="color">
+      <option *ngFor="let color of colors" [value]="color.value">
+        {{ color.display }}
+      </option>
     </select>
+
+    <ul class="error-messages" *ngIf="carForm.controls.color.invalid && carForm.controls.color.touched">
+      <li *ngFor="let error of formErrors['color']">{{ error }}</li>
+    </ul>
   </div>
 
   <div>
-    <label for="cb1">1</label>
-    <input id="cb1" type="checkbox">
+    <input id="electric" type="checkbox" formControlName="isElectric">
+    <label for="electric">Electric&nbsp;</label>
+
+    <input id="safe" type="checkbox" formControlName="isSafe">
+    <label for="safe">Safe&nbsp;</label>
   </div>
 
   <div>
-    <label for="cb2">2</label>
-    <input id="cb2" type="checkbox">
-  </div>
-
-  <div>
-    <label for="cb3">3</label>
-    <input id="cb3" type="checkbox">
-  </div>
-
-  <div>
-    <button>OK</button>
-    <button>Cancel</button>
+    <button type="submit" [disabled]="carForm.invalid">OK</button>
+    <button (click)="carForm.reset()">Cancel</button>
   </div>
 </form>

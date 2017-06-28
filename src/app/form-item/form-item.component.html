@@ -1,0 +1,9 @@
+<div>
+  <ng-content></ng-content>
+
+  {{ errorsMap | json }}
+  <app-error-messages
+    [errorsMap]="errorsMap"
+    [messages]="messages">
+  </app-error-messages>
+</div>
